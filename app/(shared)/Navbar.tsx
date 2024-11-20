@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import React from 'react';
 import SocialLinks from './SocialLinks';
+import Image from 'next/image';
+import Ad1 from '../../public/assets/ad-1.jpg'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
@@ -31,7 +33,13 @@ const Navbar = (props: Props) => {
           <p className="text-sm mt-3">Powered by AI</p>
         </div>
         <div className="basis-full relative w-auto h-32 bg-wh-500">
-          Image right here
+          <Image
+            fill
+            style={{ objectFit: 'cover' }}
+            alt="ad"
+            placeholder="blur"
+            src={Ad1}
+          />
           {/* <Image></Image> */}
         </div>
       </div>

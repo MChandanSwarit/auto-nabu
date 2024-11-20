@@ -1,9 +1,13 @@
 import React from 'react';
 import SocialLinks from './SocialLinks';
 import Subscribe from './Subscribe';
+import Image from 'next/image';
+import Ad2 from '../../public/assets/ad-2.png';
+import AboutProfile from '../../public/assets/chandu_extra_cool.jpg';
 
-type Props = {};
+type Props = unknown;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Sidebar = (props: Props) => {
   return (
     <section>
@@ -14,17 +18,32 @@ const Sidebar = (props: Props) => {
         <SocialLinks isDark />
       </div>
       <Subscribe />
-      <div className="bg-wh-900 my-8">Advert Image</div>
+      <div className="hidden md:block my-8 w-full">
+        <Image
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          alt="tech"
+          placeholder="blur"
+          src={Ad2}
+        />
+      </div>
       <h4 className="bg-wh-900 py-3 px-5 text-wh-50 text-xs font-bold text-center">
         About the Blog
       </h4>
-      <div className="bg-wh-900 my-8">Profile</div>
+      <div className="flex justify-center my-3">
+        <Image
+          style={{ width: '500px', height: '250px', objectFit: 'cover' }}
+          alt="profile"
+          placeholder="blur"
+          src={AboutProfile}
+        />
+      </div>
       <h4 className="py-3 px-5 text-wh-500 font-bold text-center">
-        Geoffrey Epstein
+        Chandan Swarit
       </h4>
       <p className="text-wh-500 text-center text-sm">
-        lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-        doloremque aspernatur nihil saepe saepe saepe saepe
+        I&apos;m a passionate computer science student and full-stack developer. I have a keen interest
+        in emerging technologies and enjoy sharing my knowledge with others. In
+        my free time, I like to build stuff.
       </p>
     </section>
   );

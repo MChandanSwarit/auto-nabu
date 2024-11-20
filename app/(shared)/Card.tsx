@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { Post } from '../page';
+import Image from 'next/image';
 
 type Props = {
   className?: string;
@@ -17,7 +18,7 @@ const Card = ({
   isSmallCard,
   isLongForm,
 }: Props) => {
-  const { id, title, author, created_at, snippet } = post || {};
+  const { id, title, author, image, created_at, snippet } = post || {};
   const date = new Date(created_at);
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -32,7 +33,15 @@ const Card = ({
         className="basis-full hover:opacity-70"
         href={`${process.env.NEXT_PUBLIC_URL}/post/${id}`}
       >
-        <div className={`relative w-auto mb-3 ${imageHeight}`}>image</div>
+        <div className={`relative w-auto mb-3 ${imageHeight}`}>
+          <Image
+            fill
+            style={{ objectFit: 'cover' }}
+            alt="tech"
+            placeholder="blur"
+            src={image}
+          />
+        </div>
       </Link>
       <div className="basis-full">
         <Link href={`${process.env.NEXT_PUBLIC_URL}/post/${id}`}>
@@ -50,7 +59,7 @@ const Card = ({
           <h6 className="px-1 text-wh-300 text-xs">{formattedDate}</h6>
         </div>
         <p
-          className={`text-wh-100 ${
+          className={`text-wh-500 ${
             isLongForm ? 'line-clamp-5' : 'line-clamp-3'
           }`}
         >
