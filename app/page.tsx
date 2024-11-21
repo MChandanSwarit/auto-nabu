@@ -5,9 +5,10 @@ import Other from './(shared)/Other';
 import Subscribe from './(shared)/Subscribe';
 import Sidebar from './(shared)/Sidebar';
 import { getPosts } from '../lib/supabase';
+import { FormattedPost } from './types';
 
-export interface Post {
-  id: number;
+export interface PostType {
+  id: string;
   title: string;
   category: string;
   content: string;
@@ -15,6 +16,7 @@ export interface Post {
   snippet: string;
   author: string;
   created_at: string;
+  updated_at: string;
 }
 
 export const revalidate = 60;
@@ -24,10 +26,10 @@ export default async function Home() {
   // console.log('posts', posts);
 
   const formatPosts = () => {
-    const trendingPosts: Array<Post> = [];
-    const techPosts: Array<Post> = [];
-    const travelPosts: Array<Post> = [];
-    const otherPosts: Array<Post> = [];
+    const trendingPosts: Array<FormattedPost> = [];
+    const techPosts: Array<FormattedPost> = [];
+    const travelPosts: Array<FormattedPost> = [];
+    const otherPosts: Array<FormattedPost> = [];
 
     posts.forEach((post, i) => {
       if (i < 4) {

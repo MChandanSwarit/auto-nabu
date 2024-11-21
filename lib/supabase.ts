@@ -1,4 +1,4 @@
-import { Post } from '@/app/page';
+import { PostType } from '@/app/page';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -10,7 +10,7 @@ if (!supabaseUrl || !supabaseKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
-export async function getPosts(): Promise<Post[]> {
+export async function getPosts(): Promise<PostType[]> {
   try {
     const { data, error } = await supabase.from('posts').select('*');
     if (error) {
@@ -18,7 +18,7 @@ export async function getPosts(): Promise<Post[]> {
     }
 
     const formattedPosts = await Promise.all(
-      data.map(async (post: Post) => {
+      data.map(async (post: PostType) => {
         try {
           // console.log(`Loading image for post ${post.id}: ${post.image}`);
           const imageModule = await import(`../public${post.image}`);
@@ -33,6 +33,44 @@ export async function getPosts(): Promise<Post[]> {
     return formattedPosts;
   } catch (error) {
     console.error('Error fetching posts:', error);
+    throw error;
+  }
+}
+
+export async function getPost(id: string) {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+    if (!data || error) {
+      console.log(`Post with id ${id} not found.`);
+      throw error;
+    }
+    return data;
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    throw error;
+  }
+}
+
+export async function updatePost(id: string, title: string, content: string) {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .update({ title, content })
+      .eq('id', id)
+      .select("*")
+      .single()
+
+    if (error) {
+      throw error;
+    }
+    console.log('Post updated successfully:', data);
+    return data;
+  } catch (error) {
+    console.error('Error updating post:', error);
     throw error;
   }
 }
